@@ -1,0 +1,10 @@
+.map-target {
+  height: 0;
+  svg {
+    position: relative;
+    top: 120px;
+    z-index: 999;
+    left: 10px;
+    cursor: pointer;
+  }
+}

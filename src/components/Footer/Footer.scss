@@ -1,0 +1,17 @@
+footer {
+  width: 100%;
+  height: 150px;
+  background: #fafafbff;
+  border-radius: 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+  li {
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,56 @@
+.listing {
+  .listing-info {
+    display: flex;
+
+    section {
+      flex: 2;
+      padding: 2rem;
+
+      h4 {
+        margin: 10px 0;
+      }
+
+      .listing-items {
+        padding: 10px;
+        border: 1px solid #bcc1caff;
+        margin-top: 15px;
+      }
+    }
+    .message {
+      flex: 1;
+      padding: 2rem 10px;
+      textarea {
+        width: 100%;
+        padding: 12px 16px;
+        margin-bottom: 12px;
+        line-height: 18px;
+        resize: vertical;
+        border: 2px solid #d6d6d6;
+        border-radius: 4px;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        height: auto;
+        color: #353535;
+        background-color: #fff;
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        border: none;
+        background-color: #00bdd6ff;
+        color: #fff;
+        padding: 17px 38px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-size: 1.25rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #00a9c0ff;
+          transition: 0.3s all ease-out;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap");
+
+:root {
+  --primary-color: #171a1fff;
+  --secondary-color: #00bdd6ff;
+  --button-hover: #00a9c0ff;
+  --input-bg: #323842ff;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1920px;
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.mb-20 {
+  margin-top: 20px;
+}

@@ -1,0 +1,17 @@
+.settings {
+  display: flex;
+
+  .settings-sidebar {
+    flex: 1;
+    padding: 3rem;
+
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
+  .settings-menu {
+    flex: 4;
+    padding: 4rem 1rem;
+  }
+}
