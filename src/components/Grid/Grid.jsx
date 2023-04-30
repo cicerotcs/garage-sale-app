@@ -2,11 +2,12 @@ import "./Grid.scss";
 import Card from "../Card/Card";
 import { sales } from "../../data.js";
 
-const Grid = () => {
+const Grid = ({ listings }) => {
+  console.log(listings);
   return (
     <div className="grid">
-      {sales.map((sale) => (
-        <Card key={sale.id} sale={sale} />
+      {listings.map((listing) => (
+        <Card key={listing.id} listing={listing} />
       ))}
     </div>
   );

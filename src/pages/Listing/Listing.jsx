@@ -7,9 +7,9 @@ const Listing = () => {
   const { state } = location;
 
   const {
-    lat,
-    lng,
-    name,
+    latitude,
+    longitude,
+    store_name,
     description,
     contact,
     items,
@@ -18,10 +18,10 @@ const Listing = () => {
 
   return (
     <div className="listing">
-      <Map height="300px" lat={lat} lng={lng} />
+      <Map height="300px" lat={latitude} lng={longitude} />
       <div className="listing-info">
         <section>
-          <h2>{name}</h2>
+          <h2>{store_name}</h2>
           <h4>{address}</h4>
           <p>ph: {contact}</p>
           <div className="listing-items">

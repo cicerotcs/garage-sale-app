@@ -58,4 +58,16 @@ const deleteListing = async (req, res) => {
   res.status(200).json({ msg: "Your listing has been deleted" });
 };
 
-module.exports = { addListing, findListings, updateListing, deleteListing };
+// all listings
+const allListings = async (req, res) => {
+  const listings = await Listing.all();
+  res.json(listings);
+};
+
+module.exports = {
+  addListing,
+  findListings,
+  updateListing,
+  deleteListing,
+  allListings,
+};

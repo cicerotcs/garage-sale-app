@@ -10,6 +10,7 @@ const AppContext = ({ children }) => {
   const [activeLink, setActiveLink] = useState("general");
   const [user, setUser] = useState(getUser());
   const [location, setLocation] = useState("");
+  const [state, setState] = useState("");
 
   return (
     <GlobalContext.Provider
@@ -20,6 +21,8 @@ const AppContext = ({ children }) => {
         setUser,
         location,
         setLocation,
+        state,
+        setState,
       }}
     >
       {children}

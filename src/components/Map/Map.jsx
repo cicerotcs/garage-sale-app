@@ -9,19 +9,39 @@ import {
 import { sales } from "../../data.js";
 import { Link } from "react-router-dom";
 import { BiTargetLock } from "react-icons/bi";
+import { useGlobalContext } from "../../hooks/context.jsx";
 
 import "./Map.scss";
 import { useState, useCallback, useEffect, useMemo } from "react";
 
-const center = [-34.8211664984673, 138.61874592823662];
 const zoom = 13;
 
-const Map = ({ height, lat, lng }) => {
+const Map = ({ height, lat, lng, listings }) => {
+  const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
+  const { setState } = useGlobalContext();
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+      setCoords({
+        latitude: latitude,
+        longitude: longitude,
+      });
+      const apiKey = import.meta.env.VITE_APP_GOOGLE_API;
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      const state = data.results[0].address_components.find((component) =>
+        component.types.includes("administrative_area_level_1")
+      ).long_name;
+      setState(state);
+    });
+  }, []);
+
   function DisplayPosition({ map }) {
     const [position, setPosition] = useState(() => map.getCenter());
 
     const onClick = useCallback(() => {
-      map.setView(center, zoom);
+      map.setView([coords?.latitude, coords?.longitude], zoom);
     }, [map]);
 
     const onMove = useCallback(() => {
@@ -48,7 +68,7 @@ const Map = ({ height, lat, lng }) => {
     const displayMap = useMemo(
       () => (
         <MapContainer
-          center={center}
+          center={[coords?.latitude, coords?.longitude]}
           zoom={zoom}
           scrollWheelZoom={false}
           ref={setMap}
@@ -60,11 +80,14 @@ const Map = ({ height, lat, lng }) => {
           />
           {location.pathname === "/" ? (
             <>
-              {sales.map((sale) => (
-                <Marker position={[sale.lat, sale.lng]} key={sale.id}>
+              {listings?.map((listing) => (
+                <Marker
+                  position={[listing.latitude, listing.longitude]}
+                  key={listing.id}
+                >
                   <Popup>
-                    {sale.name} <br />{" "}
-                    <Link to={`/listing/${sale.id}`} state={sale}>
+                    {listing.store_name} <br />{" "}
+                    <Link to={`/listing/${listing.id}`} state={listing}>
                       View
                     </Link>
                   </Popup>
@@ -89,4 +112,5 @@ const Map = ({ height, lat, lng }) => {
 
   return <ExternalStateExample />;
 };
+
 export default Map;

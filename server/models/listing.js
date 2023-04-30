@@ -66,6 +66,13 @@ class Listing {
     const res = await pool.query(sql, [listingId, userId]);
     return res;
   };
+
+  static all = async () => {
+    let sql = "SELECT * FROM listing";
+
+    const res = await pool.query(sql);
+    return res.rows;
+  };
 }
 
 module.exports = Listing;
