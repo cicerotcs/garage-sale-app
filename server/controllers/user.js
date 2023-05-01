@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const User = require("../models/user");
 
 const uploadAvatar = async (req, res) => {
   const { avatar } = req.body;
@@ -20,4 +21,15 @@ const uploadAvatar = async (req, res) => {
   });
 };
 
-module.exports = { uploadAvatar };
+const updateInfo = async (req, res) => {
+  const { username, location, bio } = req.body;
+  await User.update(req.user.userId, username, location, bio);
+  res.status(200).json({ msg: "profile has been updated" });
+};
+
+const getInfo = async (req, res) => {
+  const dbRes = await User.get(req.user.userId);
+  res.status(200).json(dbRes);
+};
+
+module.exports = { uploadAvatar, updateInfo, getInfo };

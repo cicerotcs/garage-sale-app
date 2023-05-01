@@ -4,11 +4,11 @@ import logo from "../../assets/img/logo.png";
 import { FaUserAlt, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../hooks/context";
-
-import profilePhoto from "../../assets/img/profile.png";
+import useAvatar from "../../hooks/useAvatar";
 
 const Navbar = () => {
   const { user } = useGlobalContext();
+  const profilePicture = useAvatar();
   return (
     <div className="nav">
       <div className="nav-logo">
@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="nav-profile">
         {user ? (
           <Link to="/settings">
-            <img src={profilePhoto} alt="profile" />
+            <img src={profilePicture} alt="profile" />
           </Link>
         ) : (
           <Link to="/signin">

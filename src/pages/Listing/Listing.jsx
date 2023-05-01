@@ -1,10 +1,13 @@
 import "./Listing.scss";
 import { useLocation } from "react-router-dom";
 import Map from "../../components/Map/Map";
+import { useState } from "react";
 
 const Listing = () => {
   const location = useLocation();
   const { state } = location;
+
+  const [text, setText] = useState("Send a message to the seller");
 
   const {
     latitude,
@@ -15,6 +18,10 @@ const Listing = () => {
     items,
     location: address,
   } = state;
+
+  const handleOnChange = (e) => {
+    setText(() => e.target.value);
+  };
 
   return (
     <div className="listing">
@@ -29,7 +36,7 @@ const Listing = () => {
           </div>
         </section>
         <div className="message">
-          <textarea>Send a message to the seller</textarea>
+          <textarea value={text} onChange={handleOnChange}></textarea>
           <button>Send message</button>
         </div>
       </div>

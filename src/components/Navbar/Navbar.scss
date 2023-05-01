@@ -52,5 +52,10 @@
     text-align: right;
     margin-right: 10px;
     cursor: pointer;
+
+    img {
+      width: 40px;
+      object-fit: cover;
+    }
   }
 }
