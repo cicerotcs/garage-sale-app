@@ -14,6 +14,7 @@ import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   const { user } = useGlobalContext();
+
   return (
     <>
       <Navbar />

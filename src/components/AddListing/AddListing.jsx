@@ -2,17 +2,17 @@ import "./AddListing.scss";
 import FormListing from "../FormListing/FormListing";
 import { useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import { useGlobalContext } from "../../hooks/context";
 
 const AddListing = () => {
+  const { setError } = useGlobalContext();
+
   const [form, setForm] = useState({
     store_name: "",
     contact: "",
     description: "",
     items: "",
   });
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const userListing = useFetch();
 
@@ -34,10 +34,6 @@ const AddListing = () => {
           description={form.description}
           items={form.items}
           onChange={handleOnChange}
-          error={error}
-          success={success}
-          setError={setError}
-          setSuccess={setSuccess}
         />
       ) : (
         <span
@@ -48,7 +44,7 @@ const AddListing = () => {
             marginTop: "15px",
           }}
         >
-          You have 1 active listing
+          There is 1 listing that is active under your account.
         </span>
       )}
     </div>

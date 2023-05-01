@@ -3,7 +3,7 @@ import {
   removeTokenFromLocalStorage,
 } from "../utils/localStorage";
 
-function getPayload(token) {
+export function getPayload(token) {
   return JSON.parse(window.atob(token.split(".")[1]));
 }
 

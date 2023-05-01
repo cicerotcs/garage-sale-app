@@ -64,10 +64,19 @@ const allListings = async (req, res) => {
   res.json(listings);
 };
 
+//fetch data based on user location
+const allByLocation = async (req, res) => {
+  const { lat, lng } = req.body;
+
+  const dbRes = await Listing.allByLocation(lat, lng);
+  res.json(dbRes);
+};
+
 module.exports = {
   addListing,
   findListings,
   updateListing,
   deleteListing,
   allListings,
+  allByLocation,
 };

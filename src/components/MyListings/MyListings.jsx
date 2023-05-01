@@ -1,9 +1,11 @@
 import FormListing from "../FormListing/FormListing";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "../../hooks/context";
 
 const MyListings = () => {
   const userListing = useFetch();
+  const { setError } = useGlobalContext();
 
   const [form, setForm] = useState({
     store_name: "",
@@ -12,9 +14,6 @@ const MyListings = () => {
     items: "",
     listingId: "",
   });
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     if (userListing) {
@@ -47,10 +46,6 @@ const MyListings = () => {
           items={form.items}
           listingId={form.listingId}
           onChange={handleOnChange}
-          error={error}
-          success={success}
-          setError={setError}
-          setSuccess={setSuccess}
         />
       ) : (
         <span
@@ -61,7 +56,7 @@ const MyListings = () => {
             marginTop: "15px",
           }}
         >
-          You don't have any active listing
+          It appears that you do not currently have any active listings.
         </span>
       )}
     </div>

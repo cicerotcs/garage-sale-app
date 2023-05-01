@@ -1,14 +1,26 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { signup, signin } from "../../utils/auth-api";
+import { useGlobalContext } from "../../hooks/context";
+import { useNavigate } from "react-router-dom";
 import authBg from "../../assets/img/img-2627.png";
 import Button from "../../components/Button/Button";
+import Validator from "../Validator/Validator";
 
 const AuthForm = ({ label, action, buttonLabel }) => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const {
+    login,
+    error,
+    success,
+    setError,
+    setSuccess,
+    isLoading,
+    setIsLoading,
+  } = useGlobalContext();
+
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     setForm({
@@ -27,17 +39,29 @@ const AuthForm = ({ label, action, buttonLabel }) => {
       return;
     }
 
+    setIsLoading(true);
+
     let res;
 
     if (action === "signup") {
       if (!form.name) {
         setError("Please complete all required fields");
+        setIsLoading(false);
         return;
       }
       res = await signup(name, email, password);
+      if (res.status === 200) {
+        navigate("/signin");
+      }
     } else if (action === "signin") {
       res = await signin(email, password);
+      if (res.status === 200) {
+        login(res.data.token);
+        navigate("/settings");
+      }
     }
+
+    setIsLoading(false);
 
     if (res.status === 200) {
       setSuccess(res.data.msg);
@@ -86,15 +110,9 @@ const AuthForm = ({ label, action, buttonLabel }) => {
               onChange={handleOnChange}
             />
           </div>
-          <small style={{ color: "red", display: "flex", marginTop: "10px" }}>
-            {error}
-          </small>
-          <small
-            style={{ color: "green", display: "flex", marginTop: "10px" }}
-            className="mb-20"
-          >
-            {success}
-          </small>
+
+          {error || success ? <Validator /> : ""}
+
           <div className="auth-forgot">
             <Link>Forgot password?</Link>
           </div>

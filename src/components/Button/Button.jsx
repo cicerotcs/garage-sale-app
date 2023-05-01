@@ -1,5 +1,5 @@
 import "./Button.scss";
-
+import { useGlobalContext } from "../../hooks/context";
 const Button = ({
   bg = "#00bdd6ff",
   label,
@@ -7,6 +7,8 @@ const Button = ({
   action = "submit",
   onDelete,
 }) => {
+  const { isLoading } = useGlobalContext();
+  console.log(isLoading);
   return (
     <div className="settings-btn__wrapper">
       {action !== "submit" ? (
@@ -16,7 +18,7 @@ const Button = ({
           onClick={onDelete}
           type="button"
         >
-          {label}
+          {isLoading ? "Loading..." : label}
         </button>
       ) : (
         <button
@@ -24,7 +26,7 @@ const Button = ({
           type="submit"
           style={{ background: bg, width: width }}
         >
-          {label}
+          {isLoading ? "Loading..." : label}
         </button>
       )}
     </div>

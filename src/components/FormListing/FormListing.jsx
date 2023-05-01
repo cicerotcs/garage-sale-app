@@ -8,6 +8,8 @@ import {
   deleteListing,
 } from "../../utils/listing-api";
 
+import Validator from "../Validator/Validator";
+
 const FormListing = ({
   store_name,
   contact,
@@ -15,13 +17,18 @@ const FormListing = ({
   items,
   listingId,
   onChange,
-  error,
-  success,
-  setError,
-  setSuccess,
 }) => {
-  const { activeLink, location, setLocation, setActiveLink } =
-    useGlobalContext();
+  const {
+    activeLink,
+    location,
+    setLocation,
+    setActiveLink,
+    error,
+    success,
+    setError,
+    setSuccess,
+    setIsLoading,
+  } = useGlobalContext();
 
   const coords = useLocation();
 
@@ -31,6 +38,7 @@ const FormListing = ({
     } else {
       setError(res.response.data.msg);
     }
+    setIsLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -43,6 +51,8 @@ const FormListing = ({
 
     const { lat, lng } = coords;
     let res;
+
+    setIsLoading(true);
 
     if (activeLink === "add-listing") {
       res = await addListing(
@@ -73,6 +83,7 @@ const FormListing = ({
   };
 
   const handleDelete = async () => {
+    setIsLoading(true);
     let res = await deleteListing(listingId);
     getResponse(res);
     setActiveLink("general");
@@ -123,12 +134,7 @@ const FormListing = ({
             value={items}
             onChange={onChange}
           ></textarea>
-          <small style={{ color: "red", display: "flex", marginTop: "10px" }}>
-            {error}
-          </small>
-          <small style={{ color: "green", display: "flex", marginTop: "10px" }}>
-            {success}
-          </small>
+          {error || success ? <Validator /> : ""}
         </div>
         {activeLink === "add-listing" && <Button label="Submit" />}
         {activeLink === "my-listings" && (

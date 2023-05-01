@@ -12,9 +12,9 @@ const Home = () => {
   const [layout, setLayout] = useState("map");
   const [listings, setListings] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [region, setRegion] = useState("");
   const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
-  const { setState, state } = useGlobalContext();
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async (position) => {
       const { latitude, longitude } = position.coords;
@@ -29,24 +29,42 @@ const Home = () => {
       const state = data.results[0].address_components.find((component) =>
         component.types.includes("administrative_area_level_1")
       ).long_name;
-      setState(state);
+      setRegion(state);
     });
   }, []);
 
+  // useEffect(() => {
+  //   async function fetchListings() {
+  //     setIsLoading(true);
+  //     try {
+  //       const { data } = await axios.get(BASE_URL + "/all");
+  //       setListings(data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //     setIsLoading(false);
+  //   }
+
+  //   fetchListings();
+  // }, []);
+
   useEffect(() => {
-    async function fetchListings() {
+    async function fetchAllByLocation() {
       setIsLoading(true);
       try {
-        const { data } = await axios.get(BASE_URL + "/all");
+        const { data } = await axios.post(BASE_URL + "/all-by-location", {
+          lat: coords.latitude,
+          lng: coords.longitude,
+        });
         setListings(data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
       setIsLoading(false);
     }
 
-    fetchListings();
-  }, []);
+    fetchAllByLocation();
+  }, [coords.latitude, coords.longitude]);
 
   function handleLayout(view) {
     setLayout(view);
@@ -55,7 +73,7 @@ const Home = () => {
   return (
     <div className="hero">
       <div className="layout-changer">
-        <h4>Garage sales in {state}</h4>
+        <h4>Garage sales in {region}</h4>
         <div>
           {layout === "map" ? (
             <BsGrid3X3 size={24} onClick={() => handleLayout("grid")} />

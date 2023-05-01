@@ -3,7 +3,7 @@ import { useGlobalContext } from "../../hooks/context";
 import { FaUserEdit } from "react-icons/fa";
 import useAvatar from "../../hooks/useAvatar";
 const ProfilePicture = ({ setIsEditingPhoto }) => {
-  const profilePicture = useAvatar();
+  const { profilePicture } = useAvatar();
   const { user } = useGlobalContext();
 
   return (

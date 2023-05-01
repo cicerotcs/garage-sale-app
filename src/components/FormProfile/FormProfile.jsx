@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import Search from "../Search/Search";
 import { updateProfile } from "../../utils/user-api";
 import { getInfo } from "../../utils/user-api";
+import Validator from "../Validator/Validator";
 
 const FormProfile = () => {
   const [user, setUser] = useState({});
-  const { location } = useGlobalContext();
+  const { location, error, setError, success, setSuccess, setIsLoading } =
+    useGlobalContext();
 
   const [form, setForm] = useState({
     name: "",
@@ -16,9 +18,6 @@ const FormProfile = () => {
     location: "",
     bio: "",
   });
-
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     async function fetchUser() {
@@ -50,7 +49,11 @@ const FormProfile = () => {
       return;
     }
 
+    setIsLoading(true);
+
     const res = await updateProfile(form.username, location, form.bio);
+
+    setIsLoading(false);
 
     if (res.status === 200) {
       setSuccess(res.data.msg);
@@ -59,14 +62,17 @@ const FormProfile = () => {
     }
   };
 
-  console.log(user);
-
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-name">
         <div style={{ flex: 1 }}>
           <label htmlFor="name">Full name</label>
-          <input id="name" name="name" value={form.name} disabled />
+          <input
+            id="name"
+            name="name"
+            value={form.name || user.name}
+            disabled
+          />
         </div>
         <div style={{ flex: 1 }}>
           <label htmlFor="username">Username</label>
@@ -81,14 +87,6 @@ const FormProfile = () => {
       </div>
       <div className="mb-20">
         <Search location={user.location} />
-        {/* <label htmlFor="location">Location</label>
-        <input
-          id="location"
-          name="location"
-          placeholder="Select your location"
-          value={form.location}
-          onChange={handleOnChange}
-        /> */}
       </div>
       <div className="mb-20">
         <label htmlFor="bio">Bio</label>
@@ -99,12 +97,7 @@ const FormProfile = () => {
           value={form.bio}
           onChange={handleOnChange}
         ></textarea>
-        <small style={{ color: "red", display: "flex", marginTop: "10px" }}>
-          {error}
-        </small>
-        <small style={{ color: "green", display: "flex", marginTop: "10px" }}>
-          {success}
-        </small>
+        {error || success ? <Validator /> : ""}
       </div>
       <Button label="Save Information" />
     </form>

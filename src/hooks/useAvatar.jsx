@@ -10,17 +10,19 @@ const useAvatar = () => {
 
   useEffect(() => {
     async function fetchAvatar() {
-      const res = await axios.get(
-        `http://127.0.0.1:3000/avatars/${user.userId}.png`
-      );
-      if (res.status === 200) {
-        setProfilePicture(`http://127.0.0.1:3000/avatars/${user.userId}.png`);
+      if (user) {
+        const res = await axios.get(
+          `http://127.0.0.1:3000/avatars/${user.userId}.png`
+        );
+        if (res.status === 200) {
+          setProfilePicture(`http://127.0.0.1:3000/avatars/${user.userId}.png`);
+        }
       }
     }
     fetchAvatar();
-  }, []);
+  }, [user, profilePicture]);
 
-  return profilePicture;
+  return { profilePicture, setProfilePicture };
 };
 
 export default useAvatar;

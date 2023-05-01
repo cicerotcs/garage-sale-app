@@ -5,6 +5,7 @@ const {
   updateListing,
   deleteListing,
   allListings,
+  allByLocation,
 } = require("../controllers/listing");
 const verify = require("../middlewares/authentication");
 
@@ -15,5 +16,6 @@ router.get("/find", verify, findListings);
 router.put("/edit", verify, updateListing);
 router.delete("/delete", verify, deleteListing);
 router.get("/all", allListings);
+router.post("/all-by-location", allByLocation);
 
 module.exports = router;

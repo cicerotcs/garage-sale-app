@@ -73,6 +73,14 @@ class Listing {
     const res = await pool.query(sql);
     return res.rows;
   };
+
+  static allByLocation = async (lat, lng) => {
+    let sql =
+      "SELECT * FROM listing WHERE CAST(latitude AS NUMERIC) <= CAST($1 AS NUMERIC) + 1 AND CAST(latitude AS NUMERIC) >= CAST($1 AS NUMERIC) - 1 AND CAST(longitude AS NUMERIC) <= CAST($2 AS NUMERIC) + 1 AND CAST(longitude AS NUMERIC) >= CAST($2 AS NUMERIC) - 1;";
+
+    const res = await pool.query(sql, [lat, lng]);
+    return res.rows;
+  };
 }
 
 module.exports = Listing;

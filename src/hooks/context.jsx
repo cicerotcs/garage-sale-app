@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from "react";
 
-import { getUser } from "../utils/user-service";
+import { getUser, getPayload } from "../utils/user-service";
 
 const GlobalContext = createContext();
 
@@ -10,7 +10,15 @@ const AppContext = ({ children }) => {
   const [activeLink, setActiveLink] = useState("general");
   const [user, setUser] = useState(getUser());
   const [location, setLocation] = useState("");
-  const [state, setState] = useState("");
+
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const login = (newUser) => {
+    setUser(getPayload(newUser));
+  };
 
   return (
     <GlobalContext.Provider
@@ -21,8 +29,13 @@ const AppContext = ({ children }) => {
         setUser,
         location,
         setLocation,
-        state,
-        setState,
+        login,
+        error,
+        setError,
+        success,
+        setSuccess,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

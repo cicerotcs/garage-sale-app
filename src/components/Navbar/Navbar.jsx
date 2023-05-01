@@ -8,12 +8,13 @@ import useAvatar from "../../hooks/useAvatar";
 
 const Navbar = () => {
   const { user } = useGlobalContext();
-  const profilePicture = useAvatar();
+  const { profilePicture } = useAvatar();
+
   return (
     <div className="nav">
       <div className="nav-logo">
         <img src={logo} alt="logo" />
-        <Link to="/">Home</Link>
+        <a href="/">Home</a>
       </div>
       <div className="nav-search">
         <FaSearch color="#bcc1caff" size={20} />
