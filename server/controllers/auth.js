@@ -1,4 +1,5 @@
 const Auth = require("../models/auth");
+const axios = require("axios");
 
 const signup = async (req, res, next) => {
   const { name, email, password } = req.body;

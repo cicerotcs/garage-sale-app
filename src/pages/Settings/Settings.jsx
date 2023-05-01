@@ -6,14 +6,22 @@ import MenuLinks from "../../components/MenuLinks/MenuLinks";
 import AddListing from "../../components/AddListing/AddListing";
 import MyListings from "../../components/MyListings/MyListings";
 import { useGlobalContext } from "../../hooks/context";
+import { useState } from "react";
+import UploadAvatar from "../../components/Avatar/Avatar";
 
 const Settings = () => {
   const { activeLink } = useGlobalContext();
+  const [isEditingPhoto, setIsEditingPhoto] = useState(false);
+
   return (
     <div className="settings">
       <div className="settings-sidebar">
         <h2>Settings</h2>
-        <ProfilePicture />
+        {isEditingPhoto ? (
+          <UploadAvatar setIsEditingPhoto={setIsEditingPhoto} />
+        ) : (
+          <ProfilePicture setIsEditingPhoto={setIsEditingPhoto} />
+        )}
       </div>
       <div className="settings-menu">
         <MenuLinks />

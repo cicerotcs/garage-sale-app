@@ -7,11 +7,9 @@ import AppContext from "./hooks/context.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AppContext>
-        <App />
-      </AppContext>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <AppContext>
+      <App />
+    </AppContext>
+  </BrowserRouter>
 );

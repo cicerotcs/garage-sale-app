@@ -16,7 +16,8 @@ class Auth {
       throw new BadRequestError("You need to provide a valid email!");
     }
 
-    let sql = "INSERT INTO users(name, email, password) VALUES($1,$2,$3);";
+    let sql =
+      "INSERT INTO users(name, email, password) VALUES($1,$2,$3) returning *;";
 
     try {
       await pool.query(sql, [name, email, hashedPassword]);
