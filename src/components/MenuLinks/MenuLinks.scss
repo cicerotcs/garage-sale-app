@@ -2,8 +2,19 @@
   ul {
     display: flex;
     gap: 40px;
+    align-items: center;
 
     li {
+      cursor: pointer;
+    }
+    .logout {
+      padding: 5px 24px;
+      background: var(--secondary-color);
+      border-radius: 6px;
+      color: var(--primary-color);
+      font-weight: 700;
+      border: 0;
+      outline: none;
       cursor: pointer;
     }
   }

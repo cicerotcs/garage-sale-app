@@ -6,7 +6,7 @@ import { useState } from "react";
 const Grid = ({ listings }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const listingsToRender = listings?.slice(startIndex, endIndex);

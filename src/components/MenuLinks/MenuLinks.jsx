@@ -2,7 +2,12 @@ import { useGlobalContext } from "../../hooks/context";
 import "./MenuLinks.scss";
 
 const MenuLinks = () => {
-  const { activeLink, setActiveLink } = useGlobalContext();
+  const { activeLink, setActiveLink, logout } = useGlobalContext();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className="settings-menu__links">
       <ul>
@@ -25,6 +30,9 @@ const MenuLinks = () => {
           My listings
         </li>
         <li>Message center</li>
+        <button onClick={handleLogout} className="logout">
+          Logout
+        </button>
       </ul>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useContext, createContext, useState } from "react";
+import { removeTokenFromLocalStorage } from "../utils/localStorage";
 
 import { getUser, getPayload } from "../utils/user-service";
 
@@ -19,6 +20,11 @@ const AppContext = ({ children }) => {
     setUser(getPayload(newUser));
   };
 
+  const logout = () => {
+    setUser(null);
+    removeTokenFromLocalStorage();
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -37,6 +43,7 @@ const AppContext = ({ children }) => {
         setIsLoading,
         searchResults,
         setSearchResults,
+        logout,
       }}
     >
       {children}

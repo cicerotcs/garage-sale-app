@@ -14,7 +14,7 @@ const useLocation = () => {
               import.meta.env.VITE_APP_GOOGLE_API
             }`
           );
-          console.log(position);
+
           const { lat, lng } = position.results[0].geometry.location;
 
           if (lat && lng) {
