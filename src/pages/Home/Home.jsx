@@ -8,45 +8,10 @@ import { useEffect, useState } from "react";
 
 const BASE_URL = "http://127.0.0.1:3000/api/listing";
 
-const Home = () => {
+const Home = ({ region, coords }) => {
   const [layout, setLayout] = useState("map");
   const [listings, setListings] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [region, setRegion] = useState("");
-  const [coords, setCoords] = useState({ latitude: 0, longitude: 0 });
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const { latitude, longitude } = position.coords;
-      setCoords({
-        latitude: latitude,
-        longitude: longitude,
-      });
-      const apiKey = import.meta.env.VITE_APP_GOOGLE_API;
-      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      const state = data.results[0].address_components.find((component) =>
-        component.types.includes("administrative_area_level_1")
-      ).long_name;
-      setRegion(state);
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   async function fetchListings() {
-  //     setIsLoading(true);
-  //     try {
-  //       const { data } = await axios.get(BASE_URL + "/all");
-  //       setListings(data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //     setIsLoading(false);
-  //   }
-
-  //   fetchListings();
-  // }, []);
 
   useEffect(() => {
     async function fetchAllByLocation() {

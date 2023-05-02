@@ -3,6 +3,7 @@ const pool = require("./db/connect");
 const authRouter = require("./routes/auth");
 const listingRouter = require("./routes/listing");
 const userRouter = require("./routes/user");
+const searchRouter = require("./routes/search");
 const errorHandler = require("./middlewares/errorHandler");
 require("express-async-errors");
 const cors = require("cors");
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 app.use("/api/user", userRouter);
+app.use("/api/search", searchRouter);
 app.use(errorHandler);
 app.use(express.static("public"));
 

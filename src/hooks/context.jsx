@@ -10,11 +10,10 @@ const AppContext = ({ children }) => {
   const [activeLink, setActiveLink] = useState("general");
   const [user, setUser] = useState(getUser());
   const [location, setLocation] = useState("");
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState(null);
 
   const login = (newUser) => {
     setUser(getPayload(newUser));
@@ -36,6 +35,8 @@ const AppContext = ({ children }) => {
         setSuccess,
         isLoading,
         setIsLoading,
+        searchResults,
+        setSearchResults,
       }}
     >
       {children}

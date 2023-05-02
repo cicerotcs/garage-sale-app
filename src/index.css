@@ -9,6 +9,12 @@
   --input-bg: #323842ff;
 }
 
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 * {
   padding: 0;
   margin: 0;

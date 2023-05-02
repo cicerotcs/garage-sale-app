@@ -28,10 +28,13 @@
   .nav-search {
     flex: 4;
 
-    display: flex;
-    align-items: center;
     background-color: #323842ff;
-    padding: 5px 0;
+
+    form {
+      margin: 0 !important;
+      display: flex;
+      align-items: center;
+    }
 
     svg {
       margin: 0 10px;
