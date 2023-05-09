@@ -1,3 +1,7 @@
+![homepage](https://i.imgur.com/GhqqjpE.png)
+
+![dashboard](https://i.imgur.com/636r0Gs.png)
+
 # Garage Sale App
 
 The Garage Sale app allows users to locate garage sales within their location on a map or in a grid view. Users can also add new listings, edit and delete existing listings, update their profile information and profile picture, and search for garage sales.
