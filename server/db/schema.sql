@@ -20,5 +20,3 @@ CREATE TABLE listing(
     latitude numeric(15,12),
     longitude numeric(15,12)
 )
-
-"SELECT * FROM listing WHERE items::text ILIKE '%pottery%' AND CAST(latitude AS NUMERIC) <= CAST($1 AS NUMERIC) + 1 AND CAST(latitude AS NUMERIC) >= CAST($1 AS NUMERIC) -1 AND CAST(longitude AS NUMERIC) <= CAST($2 AS NUMERIC) + 1 AND CAST(longitude AS NUMERIC) >= CAST($2 AS NUMERIC) -1; "

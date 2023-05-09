@@ -2,13 +2,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { signup, signin } from "../../utils/auth-api";
 import { useGlobalContext } from "../../hooks/context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import authBg from "../../assets/img/img-2627.png";
 import Button from "../../components/Button/Button";
 import Validator from "../Validator/Validator";
 
 const AuthForm = ({ label, action, buttonLabel }) => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+
+  const location = useLocation();
 
   const {
     login,
@@ -114,7 +116,11 @@ const AuthForm = ({ label, action, buttonLabel }) => {
           {error || success ? <Validator /> : ""}
 
           <div className="auth-forgot">
-            <Link>Forgot password?</Link>
+            {location.pathname === "/signin" ? (
+              <Link to="/signup">Create an account</Link>
+            ) : (
+              <Link to="/signin">Signin</Link>
+            )}
           </div>
           <Button label={buttonLabel} width="100%" />
         </form>
